@@ -2,7 +2,7 @@
   "name": "miilDiary",
   "version": "1.0.0",
   "description": "写真を通じて『おいしい』を共有する食のSNS『miil』の日記ツール（非公式）",
-  "main": "index.js",
+  "main": "make_diary.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/daiz713/miilDiary/issues"
   },
-  "homepage": "https://github.com/daiz713/miilDiary"
+  "homepage": "https://github.com/daiz713/miilDiary",
+  "devDependencies": {
+    "http": "0.0.0"
+  }
 }

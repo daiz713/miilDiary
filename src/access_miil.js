@@ -15,49 +15,81 @@ var access_miil = {
     main: function (user_name, start_date, res) {
         if (res === undefined) {
             // 初回
-            access_miil.call_miil(user_name, start_date);
+            var url = 'http://api.miil.me/api/users/'+ user_name +'/photos/public.json';
+            access_miil.call_miil(url, user_name, start_date);
         }else {
+            console.log('Received: %d page.', access_miil.call_times);
+
+            // 取得したデータを保持する
             // res: 得られたデータを加工したもの
-            console.log('Received:', access_miil.call_times);
+            access_miil.add_photos(res.photos, start_date);
 
-            access_miil.add_photos(res.photos);
-            access_miil.add_diaries(res.photos);
-
-            console.log(access_miil.diary_info.length);
-
-            if (res.next_page === undefined) {
-                // 最終ページに達した
+            // 繰り返す
+            var j = access_miil.will_go_next(res, start_date);
+            if (j) {
+                var url = res.next_page;
+                access_miil.call_miil(url, user_name, start_date);
+            }else {
+                // これ以上APIを呼ばない
+                console.log(access_miil.diary_info.length, access_miil.dl_photos.length);
             }
         }
-
     },
 
     // ダウンロード予約リストに写真を追加する
-    add_photos: function (photos) {
+    // 日記の雛形に追加する
+    add_photos: function (photos, start_date) {
         photos.forEach(function (photo) {
-            var url = photo.url;
-            var file_name = photo.date + '.jpg';
-            var p = [url, file_name];
-            access_miil.dl_photos.push(p);
+            if (access_miil.is_in_range_date(photo.posted, start_date)) {
+                var url = photo.url;
+                var file_name = photo.date + '.jpg';
+                var p = [url, file_name];
+                access_miil.dl_photos.push(p);
+                photo.diary = '';
+                access_miil.diary_info.push(photo);
+            }
         })
     },
 
-    // 日記の雛形を作るメソッドを呼ぶ
-    add_diaries: function (photos) {
-        photos.forEach(function (photo) {
-            photo.diary = '';
-            access_miil.diary_info.push(photo);
-        });
+    // 写真日時が、条件起点日時よりも後かどうか
+    is_in_range_date: function (photo_date, start_date) {
+        var judge = false;
+
+        if (start_date === undefined) {
+            return true;
+        }else {
+            var start_day = new Date(start_date[0] +'/'+ start_date[1] +'/'+ start_date[2]);
+            var photo_day = new Date(photo_date[0] +'/'+ photo_date[1] +'/'+ photo_date[2]);
+
+            judge = (start_day <= photo_day);
+            return judge;
+        }
     },
 
-    // 写真日時が、条件起点日時よりも後かどうか
-    
     // 繰り返すかどうかの判定
+    will_go_next: function (res, start_date) {
+        var photos = res.photos;
 
+        // 5回繰り返している
+        if (access_miil.call_times >= 5) {
+            return false;
+        }
+        // 最も古いphotoが起点日時よりも前である
+        var oldest_photo = photos[photos.length - 1];
+        var j = access_miil.is_in_range_date(oldest_photo.posted, start_date);
+        if (j === false) {
+            return false;
+        }
+        // 次のページがない
+        if (res.next_page === undefined) {
+            return false;
+        }
+
+        return true;
+    },
 
     // データを取得するためのAPIを発行する
-    call_miil: function (user_name, start_date) {
-        var url = 'http://api.miil.me/api/users/'+ user_name +'/photos/public.json';
+    call_miil: function (url, user_name, start_date) {
         access_miil.call_times++;
 
         http.get(url, function (res) {

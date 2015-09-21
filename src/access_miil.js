@@ -2,7 +2,6 @@ var http = require('http');
 
 
 var access_miil = function (user_name) {
-    var user_name = user_name || 'daiz';
     var url = 'http://api.miil.me/api/users/'+ user_name +'/photos/public.json';
 
     http.get(url, function (res) {

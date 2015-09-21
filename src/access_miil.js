@@ -1,5 +1,6 @@
 var http           = require('http');
 var download_photo = require('./download_photo');
+var create_diaryjs = require('./create_diaryjs');
 
 var access_miil = {
     // APIを読んだ回数
@@ -30,8 +31,11 @@ var access_miil = {
                 var url = res.next_page;
                 access_miil.call_miil(url, user_name, start_date);
             }else {
-                // これ以上APIを呼ばない
-                console.log(access_miil.diary_info.length, access_miil.dl_photos.length);
+                // 日記データdiary.jsを出力する
+                create_diaryjs.save(access_miil.diary_info);
+
+                // 写真をダウンロードする
+                download_photo.main(access_miil.dl_photos);
             }
         }
     },

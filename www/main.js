@@ -30,9 +30,17 @@ $(function () {
         biggestFav: 0,
         photoNums: 0,
 
+        // いま表示している年月日(YYYY-MM-DD)
+        lastDate: '',
+
         addPhotoFrame: function (content) {
             var day = content.posted;
-            day = temp_day.format(day[0] +'-'+ day[1] +'-'+ day[2]);
+            var date = day[0] +'-'+ day[1] +'-'+ day[2];
+            day = temp_day.format(date);
+            if (this.lastDate === date) {
+                //day = temp_day.format('');
+            }
+            this.lastDate = date;
             var title = temp_title.format(content.title);
             var photo = 'photos/'+ content.date + '.jpg';
             photo = temp_photo.format(content.page, photo);
@@ -64,7 +72,7 @@ $(function () {
                 var $photo = $('#' + elemId).find('.photo');
                 if (isInView) {
                     if (visiblePartY == 'both' && visiblePartX == 'left'){
-                        $photo.fadeIn('slow');
+                        $photo.fadeIn();
                     }
                     else if (visiblePartY == 'both' && (visiblePartX == 'right' || visiblePartX == 'both')){
                         $photo.fadeIn();

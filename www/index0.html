@@ -12,13 +12,14 @@
             body, html {
                 margin: 0px;
                 overflow-y: hidden;
+                background-color: #e9e7e4;
             }
             .toppage {
                 position: absolute;
                 width: 100%;
                 height: 100%;
                 background-color: #ccc;
-                //background-image: url(default.jpg);
+                background-image: url(default.jpg);
                 background-repeat: no-repeat;
                 background-position: center center;
                 background-size: cover;
@@ -43,27 +44,51 @@
                 font-size: 40px;
                 font-family: roboto;
                 color: rgb(234, 223, 198);
-                top: 18px;
+                top: 23px;
                 left: 80px;
+                line-height: 40px;
+                height: 40px;
             }
             .content {
                 padding: 30px;
                 display: table-cell;
             }
             .photo-frame {
-                background-color: #fff;
+                background-color: #eee;
                 box-shadow: 0 1px 6px rgba(0,0,0,0.2);
-                border: 5px solid white;
+                border: 5px solid #fff;
                 border-radius: 4px;
                 height: 60%;
             }
             .photo {
                 width: 100%;
                 height: 100%;
+                background-color: #eee;
+                cursor: pointer;
+                display: none;
+            }
+            .day {
+                font-size: 25px;
+                font-weight: bold;
+                height: 26px;
+                color: #312319;
+                margin-bottom: 5px;
+            }
+            .title, .diary {
+                font-size: 15px;
+                padding-top: 10px;
+                padding-bottom: 10px;
+                color: #312319;
+                font-style: italic;
+            }
+            .diary {
+                font-size: 17px;
+                font-style: normal;
             }
         </style>
         <script src="diary.js"></script>
         <script src="jquery.min.js"></script>
+        <script src="lib/jquery.inview.js"></script>
     </head>
     <body>
         <div class="toppage">

@@ -74,8 +74,8 @@ var access_miil = {
     will_go_next: function (res, start_date) {
         var photos = res.photos;
 
-        // 5回繰り返している
-        if (access_miil.call_times >= 5) {
+        // 4回繰り返している
+        if (access_miil.call_times >= 4) {
             return false;
         }
         // 最も古いphotoが起点日時よりも前である

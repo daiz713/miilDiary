@@ -56,38 +56,23 @@ $(function () {
 
         init: function (settings) {
             $('.toptitle').text(settings.title);
-            this.bindEvent_toppage();
         },
 
         // 表示エリア外の画像以外は非表示にしておく
         bindEvents: function (elemId) {
             $('#' + elemId).on('inview', function (event, isInView, visiblePartX, visiblePartY) {
+                var $photo = $('#' + elemId).find('.photo');
                 if (isInView) {
-                    if (visiblePartX == 'left' && visiblePartY == 'both'){
-                        $('#' + elemId).find('.photo').fadeIn('slow');
+                    if (visiblePartY == 'both' && visiblePartX == 'left'){
+                        $photo.fadeIn('slow');
                     }
-                    if ((visiblePartX == 'right' || visiblePartX == 'both') && visiblePartY == 'both'){
-                        $('#' + elemId).find('.photo').fadeIn();
+                    else if (visiblePartY == 'both' && (visiblePartX == 'right' || visiblePartX == 'both')){
+                        $photo.fadeIn();
                     }
                 } else {
-                    $('#' + elemId).find('.photo').css({display: 'none'});//fadeOut();
+                    $photo.css({display: 'none'});
                 }
             });
-        },
-
-        bindEvent_toppage: function () {
-            /*$('.toppage').on('inview', function (event, isInView, visiblePartX, visiblePartY) {
-                if (isInView) {
-                    if (visiblePartX == 'left' && visiblePartY == 'both'){
-                        $('.toppage').fadeIn('slow');
-                    }
-                    if ((visiblePartX == 'right' || visiblePartX == 'both') && visiblePartY == 'both'){
-                        $('.toppage').fadeIn();
-                    }
-                } else {
-                    $('.toppage').css({display: 'none'});
-                }
-            });*/
         }
     };
 

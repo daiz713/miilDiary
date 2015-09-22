@@ -1,0 +1,79 @@
+<!doctype html>
+<html>
+    <head>
+        <title>miilDiary</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <!-- meta name="theme-color" content="#eee" id="headcolor" -->
+
+        <style>
+            body, html {
+                margin: 0px;
+                overflow-y: hidden;
+            }
+            .toppage {
+                position: absolute;
+                width: 100%;
+                height: 100%;
+                background-color: #ccc;
+                //background-image: url(default.jpg);
+                background-repeat: no-repeat;
+                background-position: center center;
+                background-size: cover;
+            }
+            .page {
+                position: absolute;
+                left: 100%;
+                top: 0px;
+                box-sizing: border-box;
+                height: 100%;
+                background-color: #e9e7e4;
+            }
+            .icon {
+                position: absolute;
+                width: 42px;
+                height: 42px;
+                top: 20px;
+                left: 20px;
+            }
+            .toptitle {
+                position: absolute;
+                font-size: 40px;
+                font-family: roboto;
+                color: rgb(234, 223, 198);
+                top: 18px;
+                left: 80px;
+            }
+            .content {
+                padding: 30px;
+                display: table-cell;
+            }
+            .photo-frame {
+                background-color: #fff;
+                box-shadow: 0 1px 6px rgba(0,0,0,0.2);
+                border: 5px solid white;
+                border-radius: 4px;
+                height: 60%;
+            }
+            .photo {
+                width: 100%;
+                height: 100%;
+            }
+        </style>
+        <script src="diary.js"></script>
+        <script src="jquery.min.js"></script>
+    </head>
+    <body>
+        <div class="toppage">
+            <img src="icon.png" class="icon">
+            <div class="toptitle">miilDiary</div>
+        </div>
+
+        <div class="page" id="contents-page">
+        </div>
+
+        <script src="main.js"></script>
+    </body>
+</html>

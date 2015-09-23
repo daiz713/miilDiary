@@ -59,6 +59,8 @@ $(function () {
             $contentsPage.append(photoFrame);
 
             this.bindEvents('content-' + this.photoNums);
+            this.centering('content-' + this.photoNums);
+
             this.photoNums++;
         },
 
@@ -81,6 +83,20 @@ $(function () {
 
         init: function (settings) {
             $('.toptitle').text(settings.title);
+        },
+
+        centering: function (elemId) {
+            var $elem = $('#' + elemId);
+            // .content内の各パーツの高さ
+            var height_day        = $elem.find('.day')[0].offsetHeight;
+            var height_title      = $elem.find('.title')[0].offsetHeight;
+            var height_photoFrame = $elem.find('.photo-frame')[0].offsetHeight;
+            var height_diary      = $elem.find('.diary')[0].offsetHeight;
+            // windowの高さと、.contentの高さの差（余白）
+            var room = window.innerHeight - (height_day + height_title + height_photoFrame + height_diary);
+            // 余白の半分値をcontentの上余白にする
+            $elem.css({marginTop: room / 2.6});
+
         },
 
         // 表示エリア外の画像は非表示にしておく

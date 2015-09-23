@@ -38,7 +38,7 @@ $(function () {
             var date = day[0] +'-'+ day[1] +'-'+ day[2];
             day = temp_day.format(date);
             if (this.lastDate === date) {
-                //day = temp_day.format('');
+                day = temp_day.format('');
             }
             this.lastDate = date;
             var title = temp_title.format(content.title);
@@ -72,10 +72,10 @@ $(function () {
                 var $photo = $('#' + elemId).find('.photo');
                 if (isInView) {
                     if (visiblePartY == 'both' && visiblePartX == 'left'){
-                        $photo.fadeIn();
+                        $photo.css({display: 'block'});
                     }
                     else if (visiblePartY == 'both' && (visiblePartX == 'right' || visiblePartX == 'both')){
-                        $photo.fadeIn();
+                        $photo.css({display: 'block'});
                     }
                 } else {
                     $photo.css({display: 'none'});

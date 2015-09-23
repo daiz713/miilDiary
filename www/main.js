@@ -27,6 +27,7 @@ $(function () {
 
     var miilDiary = {
         contents: user_contents,
+        biggestURL: '',
         biggestFav: 0,
         photoNums: 0,
 
@@ -47,11 +48,11 @@ $(function () {
             var diary = temp_diary.format(content.diary);
 
             // 「食べたい！」数に応じて写真を小さくする
-            // 最小値はデフォルトの40%
+            // 最小値はデフォルトの50%
             var width = WIDTH;
             var v = Math.min(100, this.biggestFav - content.favs);
             var rate = Math.min(0.5, v / 100);
-            if (rate !== 0) rate += 0.1;
+            if (rate !== 0 && rate < 0.5) rate += 0.1;
             width = width * (1 - rate);
 
             var photoFrame = temp_photoFrame.format(this.photoNums, WIDTH, day, title, width, width, photo, diary);
@@ -61,13 +62,21 @@ $(function () {
             this.photoNums++;
         },
 
-        setBiggestFavNum: function () {
+        setBiggestFavNum: function (flag) {
             var max = 0;
+            var max_url = '';
             this.contents.forEach(function (content) {
                 var fav = +content.favs;
-                if (fav > max) max = fav;
+                if (fav > max) {
+                    max = fav;
+                    max_url = content.url;
+                }
             });
+            this.biggestURL = max_url;
             this.biggestFav = max;
+            if (flag) {
+                $('.toppage').css({backgroundImage: 'url('+ max_url +')'});
+            }
         },
 
         init: function (settings) {
@@ -92,7 +101,7 @@ $(function () {
         }
     };
 
-    miilDiary.setBiggestFavNum();
+    miilDiary.setBiggestFavNum(true);
 
     // コンテンツの最初の要素は設定オブジェクト
     var settings = miilDiary.contents[0];

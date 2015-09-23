@@ -94,8 +94,10 @@ $(function () {
             var height_diary      = $elem.find('.diary')[0].offsetHeight;
             // windowの高さと、.contentの高さの差（余白）
             var room = window.innerHeight - (height_day + height_title + height_photoFrame + height_diary);
-            // 余白の半分値をcontentの上余白にする
-            $elem.css({marginTop: room / 2.6});
+            // 余白の約半分をcontentの上余白にする
+            if (room > 0) {
+                $elem.css({marginTop: room / 2.6});
+            }
 
         },
 

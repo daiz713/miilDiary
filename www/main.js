@@ -72,10 +72,10 @@ $(function () {
                 var $photo = $('#' + elemId).find('.photo');
                 if (isInView) {
                     if (visiblePartY == 'both' && visiblePartX == 'left'){
-                        $photo.css({display: 'block'});
+                        $photo.fadeIn();
                     }
                     else if (visiblePartY == 'both' && (visiblePartX == 'right' || visiblePartX == 'both')){
-                        $photo.css({display: 'block'});
+                        $photo.fadeIn();
                     }
                 } else {
                     $photo.css({display: 'none'});

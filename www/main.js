@@ -98,7 +98,6 @@ $(function () {
             if (room > 0) {
                 $elem.css({marginTop: room / 2.6});
             }
-
         },
 
         // 表示エリア外の画像は非表示にしておく

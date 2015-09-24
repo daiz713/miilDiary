@@ -2,80 +2,121 @@
 <html>
     <head>
         <title>miilDiary</title>
-        <script src="bower_components/webcomponentsjs/webcomponents-lite.min.js"></script>
-        <link rel="import" href="bower_components/paper-scroll-header-panel/paper-scroll-header-panel.html">
-        <link rel="import" href="bower_components/paper-toolbar/paper-toolbar.html">
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <!-- meta name="theme-color" content="#eee" id="headcolor" -->
+
         <style>
-            html, body {
+            body, html {
+                margin: 0px;
                 height: 100%;
-                margin: 0;
+                overflow-y: hidden;
                 background-color: #e9e7e4;
+                -webkit-tap-highlight-color: rgba(0,0,0,0);
             }
-            paper-scroll-header-panel {
+            .toppage {
+                position: absolute;
+                width: 100%;
                 height: 100%;
-            }
-            .title {
-                transform-origin: 0;
-                font-size: 40px!important;
-                color: rgb(234, 223, 198);
-            }
-            .indent {
-                margin-left: 60px;
-            }
-
-            .paper-scroll-header-panel-0 #headerBg.paper-scroll-header-panel {
+                background-color: #ccc;
                 background-image: url(default.jpg);
+                background-repeat: no-repeat;
+                background-position: center center;
+                background-size: cover;
             }
-
-            .paper-scroll-header-panel-0 #condensedHeaderBg.paper-scroll-header-panel {
-                background-color: #312319;
+            .page {
+                position: absolute;
+                left: 100%;
+                top: 0px;
+                box-sizing: border-box;
+                height: 100%;
+                background-color: #e9e7e4;
+                display: inline-flex;
+                display: -webkit-inline-flex;
+                display: -ms-inline-flexbox;
             }
+            .icon {
+                position: relative;
+                width: 42px;
+                height: 42px;
 
-            paper-toolbar.tall {
-                background-color: transparent;
+            }
+            .toptitlebar {
+                position: absolute;
+                background-color: rgba(49, 35, 25, 0.3);
+                padding-top: 20px;
+                padding-left: 20px;
+                width: 100%;
+                height: 86px;
+                box-sizing: border-box;
+            }
+            .toptitle {
+                position: relative;
+                font-size: 40px;
+                font-family: roboto;
+                color: rgb(234, 223, 198);
+                top: -45px;
+                left: 52px;
+                line-height: 40px;
+                height: 40px;
+            }
+            .content {
+                font-family: roboto;
+                padding: 30px;
+                padding-top: 0px;
+            }
+            .photo-frame {
+                background-color: #eee;
+                box-shadow: 0 1px 6px rgba(0,0,0,0.2);
+                border: 5px solid #fff;
+                border-radius: 4px;
+                height: 60%;
+                margin: auto;
+            }
+            .photo {
+                width: 100%;
+                height: 100%;
+                background-color: #eee;
+                cursor: pointer;
+                display: none;
+                border-radius: 4px;
+                -webkit-tap-highlight-color: rgba(0,0,0,0);
+            }
+            .day {
+                font-size: 25px;
+                font-weight: bold;
+                color: #312319;
+                margin-bottom: -12px;
+            }
+            .title, .diary {
+                font-size: 15px;
+                padding-top: 10px;
+                padding-bottom: 10px;
+                color: #312319;
+                font-style: italic;
+            }
+            .diary {
+                padding-top: 16px;
+                font-style: normal;
             }
         </style>
+        <script src="diary.js"></script>
+        <script src="jquery.min.js"></script>
+        <script src="lib/jquery.inview.js"></script>
     </head>
-    <body class="fullbleed layout vertical">
-      <paper-scroll-header-panel condenses>
-          <paper-toolbar class="tall">
-              <img src="icon.png" style="width:40px; height:40px">
-              <div class="bottom indent title" style="transform: scale(1) translateZ(0px);">Hatena Intern</div>
-          </paper-toolbar>
+    <body>
+        <div class="toppage">
+            <div class="toptitlebar">
+                <img src="icon.png" class="icon">
+                <div class="toptitle">miilDiary</div>
+            </div>
+        </div>
 
-          <div contents>
-              <user-view first-name="Samuel" last-name="Adams"></user-view>
-          </div>
+        <div class="page" id="contents-page">
+        </div>
 
-          <dom-module id="user-view">
-              <template>
-                  First: <span>{{firstName}}</span><br>
-                  Last: <span>{{lastName}}</span>
-              </template>
-
-              <script>
-              Polymer({
-                  is: 'user-view',
-                  properties: {
-                      firstName: String,
-                      lastName: String
-                  }
-             });
-             </script>
-         </dom-module>
-
-      </paper-scroll-header-panel>
-      <script>
-        // custom transformation: scale header's title
-        var title = document.querySelector('.title');
-        addEventListener('paper-header-transform', function(e) {
-            var d = e.detail;
-            var m = d.height - d.condensedHeight;
-            var scale = Math.max(0.75, (m - d.y) / (m / 0.25)  + 0.75);
-
-            Polymer.Base.transform('scale(' + scale + ') translateZ(0)', title);
-        });
-      </script>
-      <script src="main.js"></script>
+        <script src="main.js"></script>
     </body>
 </html>
